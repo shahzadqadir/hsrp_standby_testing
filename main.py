@@ -1,3 +1,5 @@
+#!/usr/bin/python3
+
 from connectivity import Connectivity
 from getpass import getpass
 
