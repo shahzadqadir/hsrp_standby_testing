@@ -1,0 +1,50 @@
+R1#sh run int f0/0
+Building configuration...
+
+Current configuration : 227 bytes
+!
+interface FastEthernet0/0
+ ip address 82.0.0.3 255.255.255.248
+ duplex auto
+ speed auto
+ standby 1 ip 82.0.0.1
+ standby 1 priority 110
+ standby 1 preempt
+ standby 2 ip 82.0.0.2
+ standby 2 priority 105
+ standby 2 preempt
+end
+
+R1#sh standby brief
+                     P indicates configured to preempt.
+                     |
+Interface   Grp  Pri P State   Active          Standby         Virtual IP
+Fa0/0       1    110 P Active  local           82.0.0.4        82.0.0.1
+Fa0/0       2    105 P Standby 82.0.0.4        local           82.0.0.2
+
+---------------------
+
+R2#sh run int f0/0
+Building configuration...
+
+Current configuration : 227 bytes
+!
+interface FastEthernet0/0
+ ip address 82.0.0.4 255.255.255.248
+ duplex auto
+ speed auto
+ standby 1 ip 82.0.0.1
+ standby 1 priority 105
+ standby 1 preempt
+ standby 2 ip 82.0.0.2
+ standby 2 priority 110
+ standby 2 preempt
+end
+
+R2#sh standby brief
+                     P indicates configured to preempt.
+                     |
+Interface   Grp  Pri P State   Active          Standby         Virtual IP
+Fa0/0       1    105 P Standby 82.0.0.3        local           82.0.0.1
+Fa0/0       2    110 P Active  local           82.0.0.3        82.0.0.2
+
