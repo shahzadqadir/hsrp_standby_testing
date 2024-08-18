@@ -47,7 +47,7 @@ def compare_standby_groups(host1: list, host2: list) -> dict:
         cpe1 = check_standby(host1[0], host1[1], host1[2])
         cpe2 = check_standby(host2[0], host2[1], host2[2])
 
-        for group in ('group-1', 'group-2'):        
+        for group in cpe1.keys():        
             if cpe1[group][0] > cpe2[group][0]:
                 if cpe1[group][1] == 'Active':
                     results["hsrp_results"][0]["CE1"].append({group.capitalize(): "Pass"})
